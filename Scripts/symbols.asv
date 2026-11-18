@@ -1,0 +1,33 @@
+clear;
+rng(1);
+
+Rs = 1000; % Symbol rate
+sps = 16; % Samples per second
+fs = Rs * sps; % Sampling rate
+N = 20; % number of bits for time plot
+bits = randi([0 1],1,N);
+symbol = bpskmap(bits);
+disp([bits;symbol])
+x = repelem(symbol,sps);
+t = (0:length(x)-1)/fs;
+
+Nlong = 2000;
+xNew = repelem(bpskmap(randi([0 1], 1, Nlong)), sps);
+lengthx = len(xNew);
+xFFT = fftshift(fft()) 
+
+figure;
+stem(0:N-1, symbol, 'filled');
+grid on;
+xlabel("Symbol Indexed"); ylabel("Symbol Value");
+title("BPSK Symbols");
+ylim([-1.5 1.5]);
+
+figure;
+plot(t,x)
+grid on;
+xlabel("Sample Indexed"); 
+ylabel("Symbol Value");
+ylim([-1.5 1.5]);
+title("BPSK Symbols");
+
